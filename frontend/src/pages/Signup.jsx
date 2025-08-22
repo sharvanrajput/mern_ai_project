@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { authApis } from "../api/authApis";
 
 
 const Signup = () => {
@@ -8,6 +9,8 @@ const Signup = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [userType, setUserType] = useState(""); // keep role separate
+    const [loading, setLoading] = useState(false);
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -22,13 +25,22 @@ const Signup = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const finalData = {
             ...formData,
             role: userType,
         };
+
+        try {
+            const res =  await authApis.signup(finalData);
+            console.log(res.data)
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
+
 
         console.log(finalData);
     };
@@ -124,7 +136,11 @@ const Signup = () => {
                             type="submit"
                             className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
                         >
-                            Sign Up
+                           {loading ? (
+                                <div className="w-6 h-6 border-2 border-white border-dashed rounded-full animate-spin"></div>
+                            ) : (
+                                "Sign Up"
+                            )}
                         </button>
 
                     </form>

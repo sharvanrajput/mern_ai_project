@@ -2,6 +2,7 @@ import express from "express"
 import { connectdb } from "./config/db.js"
 import cookieParser from "cookie-parser"
 import authRouter from "./routes/authRoute.js"
+import cors from "cors"
 
 const app = express()
 const PORT = process.env.PORT || 4000
