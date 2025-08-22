@@ -1,8 +1,10 @@
 import express from "express"
 import { connectdb } from "./config/db.js"
 import cookieParser from "cookie-parser"
-import authRouter from "./routes/authRoute.js"
 import cors from "cors"
+
+import authRouter from "./routes/authRoute.js"
+import userRoute from "./routes/userRoute.js"
 
 const app = express()
 const PORT = process.env.PORT || 4000
@@ -16,6 +18,7 @@ app.use(cors({
 }))
 
 app.use("/api/auth", authRouter)
+app.use("/api/user", userRoute)
 
 
 connectdb().then(() => {
