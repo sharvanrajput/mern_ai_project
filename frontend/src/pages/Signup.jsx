@@ -1,10 +1,11 @@
 import { use, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authApis } from "../api/authApis";
+import getCurrentuser from "../customeHooks/getCurrentuser";
+
 
 
 const Signup = () => {
-
 
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -34,9 +35,12 @@ const Signup = () => {
         };
 
         try {
-            const res =  await authApis.signup(finalData);
+            const res = await authApis.signup(finalData);
             console.log(res.data)
+            
+
             navigate("/");
+                getCurrentuser();
         } catch (error) {
             console.error(error);
         }
@@ -114,8 +118,8 @@ const Signup = () => {
                                 type="button"
                                 onClick={() => setUserType("Student")}
                                 className={`px-6 py-2 rounded-full border transition-colors ${userType === "Student"
-                                        ? "bg-black text-white border-black"
-                                        : "bg-white text-black border-gray-300 hover:border-gray-400"
+                                    ? "bg-black text-white border-black"
+                                    : "bg-white text-black border-gray-300 hover:border-gray-400"
                                     }`}
                             >
                                 Student
@@ -124,8 +128,8 @@ const Signup = () => {
                                 type="button"
                                 onClick={() => setUserType("Educator")}
                                 className={`px-6 py-2 rounded-full border transition-colors ${userType === "Educator"
-                                        ? "bg-black text-white border-black"
-                                        : "bg-white text-black border-gray-300 hover:border-gray-400"
+                                    ? "bg-black text-white border-black"
+                                    : "bg-white text-black border-gray-300 hover:border-gray-400"
                                     }`}
                             >
                                 Educator
@@ -136,7 +140,7 @@ const Signup = () => {
                             type="submit"
                             className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
                         >
-                           {loading ? (
+                            {loading ? (
                                 <div className="w-6 h-6 border-2 border-white border-dashed rounded-full animate-spin"></div>
                             ) : (
                                 "Sign Up"

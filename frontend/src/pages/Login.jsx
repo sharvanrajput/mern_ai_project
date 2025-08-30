@@ -2,11 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authApis } from "../api/authApis";
 
+
 const Login = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [userType, setUserType] = useState("Student");
     const [loading, setLoading] = useState(false);
+  
+
 
     // form state
     const [formData, setFormData] = useState({
@@ -30,9 +33,6 @@ const Login = () => {
 
         setLoading(true);
 
-        // Fake async login delay
-
-
         try {
             const res = await authApis.login({ ...formData, role: userType });
             console.log(res.data)
@@ -40,8 +40,10 @@ const Login = () => {
                 ...formData,
                 role: userType,
             });
+           
             setLoading(false);
             navigate("/");
+                getCurrentuser();
 
 
         } catch (error) {
@@ -142,7 +144,7 @@ const Login = () => {
                             )}
                         </button>
 
-                        <span className="block text-right text-sm text-gray-600 cursor-pointer hover:underline">
+                        <span className="block text-right text-sm text-gray-600 cursor-pointer hover:underline" onClick={()=>navigate("/forget")}>
                             Forgot Password?
                         </span>
 

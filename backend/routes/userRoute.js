@@ -1,6 +1,7 @@
 import {Router} from "express";
 import { getCurrentuser } from "../controllers/userController.js";
-import { isAuth } from "../middlewares/authMiddleware.js";
+import { isAuth } from "../middleware/isAuth.js";
+
 
 const userRoute = Router();
 
